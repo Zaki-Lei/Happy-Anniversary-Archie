@@ -37,49 +37,72 @@
     z-index: 0;
   }
   
+.envelope-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: scale(0.5) translate(10%, -20%);
+  transform-origin: center center;
+  transition: transform 1s ease;
+}
+
+.envelope-wrapper.expanded {
+  transform: scale(1) translate(-50%, -50%);
+}
+
+
+/* Laptop (max-width: 1440px) */
+@media (max-width: 1440px) {
   .envelope-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: scale(0.3) translate(195vw, 200vh);
-    transform-origin: top left;
-    transition: transform 1s ease;
+    transform: scale(0.5) translate(10%, -20%);
   }
-  
-  .envelope-wrapper.expanded {
-    transform: scale(1) translate(40vw, 40vh);
+}
+
+/* Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .envelope-wrapper {
+    transform: scale(0.5) translate(10%, -20%);
   }
-  
-  /* Tablet size */
-  @media (max-width: 1024px) {
-    .envelope-wrapper {
-      transform: scale(0.3) translate(150vw, 180vh);
-    }
-    .envelope-wrapper.expanded {
-      transform: scale(1) translate(30vw, 30vh);
-    }
+}
+
+/* Mobile large (max-width: 768px) */
+@media (max-width: 768px) {
+  .envelope-wrapper {
+    transform: scale(0.45) translate(-10%, -50%);
   }
-  
-  /* Mobile large */
-  @media (max-width: 768px) {
-    .envelope-wrapper {
-      transform: scale(0.25) translate(100vw, 150vh);
-    }
-    .envelope-wrapper.expanded {
-      transform: scale(1) translate(25vw, 20vh);
-    }
+}
+
+/* Mobile medium (max-width: 600px) */
+@media (max-width: 600px) {
+  .envelope-wrapper {
+    transform: scale(0.5) translate(10%, -20%);
   }
-  
-  /* Mobile small */
-  @media (max-width: 480px) {
-    .envelope-wrapper {
-      transform: scale(0.2) translate(80vw, 120vh);
-    }
-    .envelope-wrapper.expanded {
-      transform: scale(1) translate(15vw, 10vh);
-    }
+}
+
+/* Mobile small (max-width: 480px) */
+@media (max-width: 480px) {
+  .envelope-wrapper {
+    transform: scale(0.5) translate(10%, -20%);
   }
-  
+}
+
+@media (max-width: 425px) {
+  .envelope-wrapper {
+    transform: scale(0.17) translate(-150%, -180%);
+  }
+}
+
+@media (max-width: 320px) {
+  .envelope-wrapper {
+    transform: scale(0.15) translate(-210%, -240%);
+  }
+}
+
+@media (max-width: 375px) {
+  .envelope-wrapper {
+    transform: scale(0.15) translate(-200%, -210%);
+  }
+}
   .envelope {
     position: relative;
     width: 90vw;
@@ -94,14 +117,14 @@
     width: 100%;
     height: 100%;
     background: var(--bg-envelope-color);
-    z-index: 0;  /* under flap, behind letter */
+    z-index: 0; 
   }
   
-  .envelope::before { /* flap */
+  .envelope::before {
     content: "";
     position: absolute;
     top: 0;
-    z-index: 3; /* top when closed */
+    z-index: 3; 
     border-top: 130px solid var(--envelope-tab);
     border-right: 150px solid transparent;
     border-left: 150px solid transparent;
@@ -109,10 +132,10 @@
     transition: all 0.5s ease-in-out 0.7s;
   }
   
-  .envelope::after { /* front cover */
+  .envelope::after {
     content: "";
     position: absolute;
-    z-index: 2;  /* below flap, above back */
+    z-index: 2; 
     width: 0;
     height: 0;
     border-top: 130px solid transparent;
@@ -125,13 +148,13 @@
     position: absolute;
     bottom: 0;
     right: 0;   
-    left: 5%;             /* change from 10% to 0 */
-    width: 90%;             /* change from 80% to 100% */
+    left: 5%;            
+    width: 90%;             
     height: 100%;
     background: var(--primary);
     text-align: center;
-    box-shadow: none;        /* remove box-shadow if it makes edge look weird */
-    padding: 0;              /* remove padding */
+    box-shadow: none;        
+    padding: 0;              
     overflow-y: auto;
     z-index: 1;
     transition: bottom 0.6s ease, z-index 0s linear 1s;
@@ -145,16 +168,16 @@
   }
   
   .letter {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;     /* Firefox */
+    -ms-overflow-style: none; 
+    scrollbar-width: none;   
   }
 
   .note {
     background-color: #f9f9f9;
     height: 100%;
     overflow-y: auto;
-    padding: 0.5rem;             /* keep padding here */
-    box-shadow: none;           /* remove or reduce shadow to avoid border effect */
+    padding: 0.5rem;           
+    box-shadow: none;           
   }
 
   .note::-webkit-scrollbar {
@@ -163,8 +186,8 @@
 }
 
 .note {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; 
+  scrollbar-width: none;    
 }
 
   .note__text {
@@ -209,7 +232,7 @@
 .flap > .envelope::before {
   transform: rotateX(180deg);
   transition: 1s;
-  z-index: 0; /* flap goes behind when open */
+  z-index: 0; 
 }
 
 .flap > .envelope::after {
@@ -219,46 +242,39 @@
   
 .flap > .envelope > .letter {
     bottom: 100px;
-    z-index: 4;                   /* now above flap */
-    transition-delay: 1s;         /* letter slides up after flap starts */
+    z-index: 4;                  
+    transition-delay: 1s;         
   }
   
-  
-/* hide heart when open */
 .flap > .heart {
     opacity: 0;
     pointer-events: none;
     transition: transform 0.5s ease-in-out 0.4s, opacity 0.4s ease;
   }
   
-  /* show heart when closed */
 .heart {
     opacity: 1;
     pointer-events: auto;
     transition: transform 0.5s ease-in-out 0.4s, opacity 0.4s ease;
   }
 
-  /* when closing, slide letter back first */
 .closing > .envelope > .letter {
     bottom: 0;
     z-index: 1;
     transition: bottom 0.6s ease, z-index 0s linear 0.6s;
   }
   
-  /* when closing, show front cover again */
   .closing > .envelope::after {
     opacity: 1;
-    transition: opacity 0.5s ease 0.8s;  /* wait until letter slides down before showing */
+    transition: opacity 0.5s ease 0.8s; 
   }
   
-  /* when closing, rotate flap back to close */
   .closing > .envelope::before {
     transform: rotateX(0deg);
     z-index: 3;
     transition: transform 0.5s ease 1.3s;
   }
   
-  /* when closing, show heart again */
   .closing > .heart {
     opacity: 1;
     pointer-events: auto;
