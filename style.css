@@ -11,14 +11,22 @@
   
   * { margin: 0; padding: 0; box-sizing: border-box; }
   
-  body {
-    background: var(--bg-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
+body {
+  background: 
+    url('image/heart.svg') repeat,
+    var(--bg-color);
+  background-size: auto;
+  animation: movePattern 40s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+@keyframes movePattern {
+  from { background-position: 0 0; }
+  to   { background-position: 0 1000px; }
+}
   .container {
     position: relative;
     width: 100vw;
