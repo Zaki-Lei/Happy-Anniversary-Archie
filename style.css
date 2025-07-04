@@ -1,0 +1,267 @@
+:root {
+    --primary: #fff;
+    --bg-color: rgb(5, 53, 61);
+    --bg-envelope-color: #f5edd1;
+    --envelope-tab: #ecdeb8;
+    --envelope-cover: #e6cfa7;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --txt-color: #444;
+    --heart-color: rgb(252, 8, 231);
+  }
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .hamster {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 110vw;
+    max-width: 1100px;
+    height: auto;
+    z-index: 0;
+  }
+  
+  .envelope-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scale(0.3) translate(195vw, 200vh);
+    transform-origin: top left;
+    transition: transform 1s ease;
+  }
+  
+  .envelope-wrapper.expanded {
+    transform: scale(1) translate(40vw, 40vh);
+  }
+  
+  /* Tablet size */
+  @media (max-width: 1024px) {
+    .envelope-wrapper {
+      transform: scale(0.3) translate(150vw, 180vh);
+    }
+    .envelope-wrapper.expanded {
+      transform: scale(1) translate(30vw, 30vh);
+    }
+  }
+  
+  /* Mobile large */
+  @media (max-width: 768px) {
+    .envelope-wrapper {
+      transform: scale(0.25) translate(100vw, 150vh);
+    }
+    .envelope-wrapper.expanded {
+      transform: scale(1) translate(25vw, 20vh);
+    }
+  }
+  
+  /* Mobile small */
+  @media (max-width: 480px) {
+    .envelope-wrapper {
+      transform: scale(0.2) translate(80vw, 120vh);
+    }
+    .envelope-wrapper.expanded {
+      transform: scale(1) translate(15vw, 10vh);
+    }
+  }
+  
+  .envelope {
+    position: relative;
+    width: 90vw;
+    max-width: 300px;
+    height: 230px;
+  }
+  
+  .envelope__back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-envelope-color);
+    z-index: 0;  /* under flap, behind letter */
+  }
+  
+  .envelope::before { /* flap */
+    content: "";
+    position: absolute;
+    top: 0;
+    z-index: 3; /* top when closed */
+    border-top: 130px solid var(--envelope-tab);
+    border-right: 150px solid transparent;
+    border-left: 150px solid transparent;
+    transform-origin: top;
+    transition: all 0.5s ease-in-out 0.7s;
+  }
+  
+  .envelope::after { /* front cover */
+    content: "";
+    position: absolute;
+    z-index: 2;  /* below flap, above back */
+    width: 0;
+    height: 0;
+    border-top: 130px solid transparent;
+    border-right: 150px solid var(--envelope-cover);
+    border-bottom: 100px solid var(--envelope-cover);
+    border-left: 150px solid var(--envelope-cover);
+  }
+  
+  .letter {
+    position: absolute;
+    bottom: 0;
+    right: 0;   
+    left: 5%;             /* change from 10% to 0 */
+    width: 90%;             /* change from 80% to 100% */
+    height: 100%;
+    background: var(--primary);
+    text-align: center;
+    box-shadow: none;        /* remove box-shadow if it makes edge look weird */
+    padding: 0;              /* remove padding */
+    overflow-y: auto;
+    z-index: 1;
+    transition: bottom 0.6s ease, z-index 0s linear 1s;
+  }
+  
+  
+  
+  .letter::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  
+  .letter {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+
+  .note {
+    background-color: #f9f9f9;
+    height: 100%;
+    overflow-y: auto;
+    padding: 0.5rem;             /* keep padding here */
+    box-shadow: none;           /* remove or reduce shadow to avoid border effect */
+  }
+
+  .note::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.note {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+  .note__text {
+    font-family: "Sofia", cursive;
+    font-size: 0.8rem;
+    color: var(--txt-color);
+    overflow-wrap: break-word;
+  }
+  
+  .note__text p { 
+    margin-bottom: 0.5rem; 
+
+}
+  
+  .heart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 15px;
+    height: 15px;
+    background: var(--heart-color);
+    z-index: 4;
+    transform: translate(-50%, -20%) rotate(45deg);
+    transition: transform 0.5s ease-in-out 1s;
+    box-shadow: 0 1px 6px var(--shadow-color);
+    cursor: pointer;
+  }
+  
+  .heart:before,
+  .heart:after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: var(--heart-color);
+    border-radius: 50%;
+  }
+  
+  .heart:before { top: -7.5px; }
+  .heart:after { right: 7.5px; }
+  
+.flap > .envelope::before {
+  transform: rotateX(180deg);
+  transition: 1s;
+  z-index: 0; /* flap goes behind when open */
+}
+
+.flap > .envelope::after {
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+  
+.flap > .envelope > .letter {
+    bottom: 100px;
+    z-index: 4;                   /* now above flap */
+    transition-delay: 1s;         /* letter slides up after flap starts */
+  }
+  
+  
+/* hide heart when open */
+.flap > .heart {
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.5s ease-in-out 0.4s, opacity 0.4s ease;
+  }
+  
+  /* show heart when closed */
+.heart {
+    opacity: 1;
+    pointer-events: auto;
+    transition: transform 0.5s ease-in-out 0.4s, opacity 0.4s ease;
+  }
+
+  /* when closing, slide letter back first */
+.closing > .envelope > .letter {
+    bottom: 0;
+    z-index: 1;
+    transition: bottom 0.6s ease, z-index 0s linear 0.6s;
+  }
+  
+  /* when closing, show front cover again */
+  .closing > .envelope::after {
+    opacity: 1;
+    transition: opacity 0.5s ease 0.8s;  /* wait until letter slides down before showing */
+  }
+  
+  /* when closing, rotate flap back to close */
+  .closing > .envelope::before {
+    transform: rotateX(0deg);
+    z-index: 3;
+    transition: transform 0.5s ease 1.3s;
+  }
+  
+  /* when closing, show heart again */
+  .closing > .heart {
+    opacity: 1;
+    pointer-events: auto;
+    transition: transform 0.5s ease 1s, opacity 0.4s ease 1.8s;
+  }
+  
