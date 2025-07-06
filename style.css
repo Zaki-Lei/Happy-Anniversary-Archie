@@ -16,12 +16,17 @@ body {
     url('image/heart.svg') repeat,
     var(--bg-color);
   background-size: auto;
+  animation: movePattern 40s linear infinite;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
+@keyframes movePattern {
+  from { background-position: 0 0; }
+  to   { background-position: 0 1000px; }
+}
   .container {
     position: relative;
     width: 100vw;
@@ -194,10 +199,11 @@ body {
 }
 
   .note__text {
-    font-family: "Sofia", cursive;
+    font-family: "Libre Baskerville";
     font-size: 0.8rem;
     color: var(--txt-color);
     overflow-wrap: break-word;
+    text-align: justify;
   }
   
   .note__text p { 
